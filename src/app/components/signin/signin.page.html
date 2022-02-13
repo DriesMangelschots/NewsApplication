@@ -1,0 +1,86 @@
+<!--<ion-header>-->
+<!--  <ion-toolbar>-->
+<!--    <ion-buttons slot="start">-->
+<!--      <ion-back-button></ion-back-button>-->
+<!--    </ion-buttons>-->
+<!--    <ion-title class="ion-text-center">Login </ion-title>-->
+<!--  </ion-toolbar>-->
+<!--</ion-header>-->
+
+<!--<ion-content [fullscreen]="true">-->
+<!--  <form>-->
+<!--    <ion-col offsetXs="0" offsetSm="3" offsetMd="4" sizeXs="12" sizeSm="6" sizeMd="4">-->
+<!--      <ion-slides pager="true">-->
+<!--        <ion-slide>-->
+<!--          <ion-item lines="full">-->
+<!--            <ion-label position="floating">Email</ion-label>-->
+<!--            <ion-input type="text" required></ion-input>-->
+
+<!--          </ion-item>-->
+
+<!--          <ion-item lines="full">-->
+<!--            <ion-label position="floating">Wachtwoord</ion-label>-->
+<!--            <ion-input type="password" required></ion-input>-->
+
+<!--          </ion-item>-->
+
+<!--          <ion-row>-->
+<!--            <ion-col>-->
+<!--              <ion-button class="color" type="submit"  (click)="" expand="block">Inloggen</ion-button>-->
+<!--            </ion-col>-->
+<!--          </ion-row>-->
+<!--        </ion-slide>-->
+
+<!--        <ion-slide>-->
+<!--          <h4>Heb je nog geen account? <ion-text (click)="" color="primary">login</ion-text> </h4>-->
+
+
+<!--          &lt;!&ndash;  <ion-row>&ndash;&gt;-->
+<!--          &lt;!&ndash;    <ion-col>&ndash;&gt;-->
+<!--          &lt;!&ndash;      <ion-button class="ion-color" type="submit"  (click)="signup" expand="block">Registreer</ion-button>&ndash;&gt;-->
+<!--          &lt;!&ndash;    </ion-col>&ndash;&gt;-->
+<!--          &lt;!&ndash;  </ion-row>&ndash;&gt;-->
+<!--        </ion-slide>-->
+
+<!--      </ion-slides>-->
+
+
+<!--    </ion-col>-->
+<!--  </form>-->
+
+<!--</ion-content>-->
+<ion-header>
+  <ion-toolbar color="success">
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form class="form" [formGroup]="userForm" (ngSubmit)="signIn(userForm.value)">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ng-container *ngFor="let error of errorMsg.email">
+      <div *ngIf="userForm.get('email').hasError(error.type) && (userForm.get('email').dirty || userForm.get('email').touched)">
+        {{ error.message }}
+      </div>
+    </ng-container>
+
+    <ion-item>
+      <ion-label position="floating" color="primary">Password</ion-label>
+      <ion-input type="password" formControlName="password" class="form-controll" required></ion-input>
+    </ion-item>
+
+    <ng-container *ngFor="let error of errorMsg.password">
+      <div *ngIf="userForm.get('password').hasError(error.type) && (userForm.get('password').dirty || userForm.get('password').touched)">
+        {{ error.message }}
+      </div>
+    </ng-container>
+
+    <ion-button type="submit" expand="block" [disabled]="!userForm.valid">Signin</ion-button>
+
+  </form>
+  <p class="ion-text-center">Not registered yet? <a (click)="goToSignup()">Register</a></p>
+</ion-content>
